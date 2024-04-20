@@ -12,6 +12,8 @@
         "tuple": "cpp",
         "vector": "cpp",
         "cstdlib": "cpp",
-        "new": "cpp"
+        "new": "cpp",
+        "queue": "cpp",
+        "string": "cpp"
     }
 }

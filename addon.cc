@@ -1,8 +1,8 @@
 #include <nan.h>
-#include "matrix.h"
+#include "jmatrix.h"
 
 void InitAll(v8::Local<v8::Object> exports) {
-  Matrix::Init(exports);
+  JMatrix::Init(exports);
 }
 
 NODE_MODULE(addon, InitAll)

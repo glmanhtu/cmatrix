@@ -6,13 +6,20 @@
   "private": true,
   "gypfile": true,
   "devDependencies": {
-    "mocha": "^2.2.5"
+    "mocha": "^2.2.5",
+    "node-gyp": "^10.1.0"
   },
   "dependencies": {
     "bindings": "~1.5.0",
     "nan": "^2.14.0"
   },
   "scripts": {
-    "test": "mocha"
+    "config": "node-gyp configure",
+    "test": "npm run build && mocha",
+    "build:dev": "node-gyp -j 8 build --debug",
+    "build": "node-gyp -j 8 build",
+    "rebuild:dev": "node-gyp -j 8 rebuild --debug",
+    "rebuild": "node-gyp -j 8 rebuild",
+    "clean": "node-gyp clean"
   }
 }

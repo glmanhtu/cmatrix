@@ -133,4 +133,7 @@ double sign(T v)
 
 } // namespace smat
 
+void EuclideanDistanceMatrix(smat::Matrix<double> *X, smat::Matrix<double> *D);
+void ElementCopy(smat::Matrix<double> *X, smat::Matrix<double> *Y);
+smat::Matrix<double> *MDS_SMACOF(smat::Matrix<double> *D, smat::Matrix<double> *X0, int dim, int iter);
 #endif
