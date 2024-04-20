@@ -1,6 +1,7 @@
 {
   "name": "cmatrix",
   "version": "1.0.0",
+  "author": "Manh Tu VU <glmanhtu@gmail.com>",
   "description": "C++ Matrix utilities for Nodejs",
   "main": "index.js",
   "typings": "index.d.ts",
@@ -14,6 +15,7 @@
     "nan": "^2.14.0"
   },
   "scripts": {
+    "install": "node-gyp rebuild --release",
     "config": "node-gyp configure",
     "test": "npm run build && mocha",
     "build:dev": "node-gyp -j 8 build --debug",

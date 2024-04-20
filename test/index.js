@@ -1,4 +1,4 @@
-var addon = require('bindings')('addon');
+var addon = require('bindings')('cmatrix');
 var assert = require('assert');
 
 describe('native extension', function() {
