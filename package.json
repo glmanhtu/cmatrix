@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "description": "Node.js Addons Example #6",
   "main": "addon.js",
+  "typings": "index.d.ts",
   "private": true,
   "gypfile": true,
   "devDependencies": {
