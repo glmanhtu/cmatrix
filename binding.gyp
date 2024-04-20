@@ -1,8 +1,8 @@
 {
   "targets": [
     {
-      "target_name": "addon",
-      "sources": [ "addon.cc", "jmatrix.cc", "SimpleMatrix.cc" ],
+      "target_name": "cmatrix",
+      "sources": [ "cmatrix.cc", "jmatrix.cc", "SimpleMatrix.cc" ],
       "include_dirs": [
         "<!(node -e \"require('nan')\")"
       ]

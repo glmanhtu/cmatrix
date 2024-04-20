@@ -5,4 +5,4 @@ void InitAll(v8::Local<v8::Object> exports) {
   JMatrix::Init(exports);
 }
 
-NODE_MODULE(addon, InitAll)
+NODE_MODULE(cmatrix, InitAll)

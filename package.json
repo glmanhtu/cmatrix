@@ -1,10 +1,9 @@
 {
-  "name": "object_wrap",
-  "version": "0.0.0",
-  "description": "Node.js Addons Example #6",
-  "main": "addon.js",
+  "name": "cmatrix",
+  "version": "1.0.0",
+  "description": "C++ Matrix utilities for Nodejs",
+  "main": "index.js",
   "typings": "index.d.ts",
-  "private": true,
   "gypfile": true,
   "devDependencies": {
     "mocha": "^2.2.5",
