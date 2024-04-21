@@ -68,7 +68,7 @@ NAN_METHOD(JMatrix::Mds) {
   int dim = info[0]->NumberValue(context).FromJust();                                                      // number of dimensions
   int iter = info[1]->NumberValue(context).FromJust();                                                     // number of iterations
     
-  smat::Matrix<double> *mdsRes = MDS_SMACOF(obj->data_, NULL, dim, iter);
+  smat::Matrix<double> *mdsRes = smat::MDS_SMACOF(obj->data_, NULL, dim, iter);
 
   v8::Local<v8::Array> result = Nan::New<v8::Array>(mdsRes->columns());
   for (int i = 0; i < mdsRes->columns(); i++) {

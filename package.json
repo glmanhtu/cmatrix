@@ -15,7 +15,7 @@
     "nan": "^2.19.0"
   },
   "scripts": {
-    "install": "node-gyp rebuild:dev --release",
+    "install": "node-gyp rebuild --release",
     "test": "npm run rebuild && mocha",
     "rebuild:dev": "node-gyp rebuild --debug",
     "rebuild": "node-gyp rebuild --release",
