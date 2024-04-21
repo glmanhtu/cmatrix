@@ -1,8 +1,8 @@
 #include <nan.h>
 #include "jmatrix.h"
 
-void InitAll(v8::Local<v8::Object> exports) {
-  JMatrix::Init(exports);
+NAN_MODULE_INIT(InitModule) {
+  JMatrix::Init(target);
 }
 
-NODE_MODULE(cmatrix, InitAll)
+NODE_MODULE(cmatrix, InitModule)

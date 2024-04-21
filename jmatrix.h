@@ -1,21 +1,20 @@
-#ifndef MATRIX_H
-#define MATRIX_H
+#ifndef JMATRIX_H
+#define JMATRIX_H
 
 #include <nan.h>
 #include "SimpleMatrix.h"
 
 class JMatrix : public Nan::ObjectWrap {
  public:
-  static void Init(v8::Local<v8::Object> exports);
+  static NAN_MODULE_INIT(Init);
+ private:
   explicit JMatrix(int rows, int cols, double initValue = 0);
   ~JMatrix();
 
-  static void New(const Nan::FunctionCallbackInfo<v8::Value>& info);
-  static void SetCell(const Nan::FunctionCallbackInfo<v8::Value>& info);
-  static void Mds(const Nan::FunctionCallbackInfo<v8::Value>& info);
+  static NAN_METHOD(New);
+  static NAN_METHOD(SetCell);
+  static NAN_METHOD(Mds);
   static Nan::Persistent<v8::Function> constructor;
- private:
-  
   smat::Matrix<double> *data_;
 };
 

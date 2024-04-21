@@ -12,27 +12,19 @@ JMatrix::~JMatrix() {
   }
 }
 
-void JMatrix::Init(v8::Local<v8::Object> exports) {
-  v8::Local<v8::Context> context =
-      exports->GetCreationContext().ToLocalChecked();
-  Nan::HandleScope scope;
-
-  // Prepare constructor template
+NAN_MODULE_INIT(JMatrix::Init) {
   v8::Local<v8::FunctionTemplate> tpl = Nan::New<v8::FunctionTemplate>(New);
   tpl->SetClassName(Nan::New("JMatrix").ToLocalChecked());
-  tpl->InstanceTemplate()->SetInternalFieldCount(2);
+  tpl->InstanceTemplate()->SetInternalFieldCount(1);
 
-  // Prototype
   Nan::SetPrototypeMethod(tpl, "setCell", SetCell);
   Nan::SetPrototypeMethod(tpl, "mds", Mds);
 
-  constructor.Reset(tpl->GetFunction(context).ToLocalChecked());
-  exports->Set(context,
-               Nan::New("JMatrix").ToLocalChecked(),
-               tpl->GetFunction(context).ToLocalChecked());
+  constructor.Reset(Nan::GetFunction(tpl).ToLocalChecked());
+  Nan::Set(target, Nan::New("JMatrix").ToLocalChecked(), Nan::GetFunction(tpl).ToLocalChecked());
 }
 
-void JMatrix::New(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+NAN_METHOD(JMatrix::New) {
   v8::Local<v8::Context> context = info.GetIsolate()->GetCurrentContext();
   if (!info.IsConstructCall()) {
     return Nan::ThrowError(Nan::New("JMatrix::New - called without new keyword").ToLocalChecked());
@@ -53,12 +45,13 @@ void JMatrix::New(const Nan::FunctionCallbackInfo<v8::Value>& info) {
     info[1]->NumberValue(context).FromJust(), 
     info[2]->NumberValue(context).FromJust()
   );
+  
   obj->Wrap(info.This());
   info.GetReturnValue().Set(info.This());
 }
 
 
-void JMatrix::Mds(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+NAN_METHOD(JMatrix::Mds) {
   v8::Local<v8::Context> context = info.GetIsolate()->GetCurrentContext();
   JMatrix* obj = ObjectWrap::Unwrap<JMatrix>(info.Holder());
   
@@ -89,7 +82,7 @@ void JMatrix::Mds(const Nan::FunctionCallbackInfo<v8::Value>& info) {
   info.GetReturnValue().Set(result);
 }
 
-void JMatrix::SetCell(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+NAN_METHOD(JMatrix::SetCell) {
   v8::Local<v8::Context> context = info.GetIsolate()->GetCurrentContext();
   JMatrix* obj = ObjectWrap::Unwrap<JMatrix>(info.Holder());
   int row = info[0]->NumberValue(context).FromJust();
