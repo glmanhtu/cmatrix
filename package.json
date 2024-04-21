@@ -16,10 +16,7 @@
   },
   "scripts": {
     "install": "node-gyp rebuild --release",
-    "config": "node-gyp configure",
-    "test": "npm run build && mocha",
-    "build:dev": "node-gyp -j 8 build --debug",
-    "build": "node-gyp -j 8 build",
+    "test": "npm run rebuild:dev && mocha",
     "rebuild:dev": "node-gyp -j 8 rebuild --debug",
     "rebuild": "node-gyp -j 8 rebuild",
     "clean": "node-gyp clean"

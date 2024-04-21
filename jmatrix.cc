@@ -2,8 +2,6 @@
 
 Nan::Persistent<v8::Function> JMatrix::constructor;
 
-JMatrix::JMatrix(double value) : value_(value) {}
-
 JMatrix::JMatrix(int rows, int cols, double initValue) {
   this->data_ = new smat::Matrix<double>(rows, cols, initValue);
 }
@@ -25,11 +23,8 @@ void JMatrix::Init(v8::Local<v8::Object> exports) {
   tpl->InstanceTemplate()->SetInternalFieldCount(2);
 
   // Prototype
-  Nan::SetPrototypeMethod(tpl, "value", GetValue);
   Nan::SetPrototypeMethod(tpl, "setCell", SetCell);
   Nan::SetPrototypeMethod(tpl, "mds", Mds);
-  Nan::SetPrototypeMethod(tpl, "plusOne", PlusOne);
-  Nan::SetPrototypeMethod(tpl, "multiply", Multiply);
 
   constructor.Reset(tpl->GetFunction(context).ToLocalChecked());
   exports->Set(context,
@@ -62,32 +57,6 @@ void JMatrix::New(const Nan::FunctionCallbackInfo<v8::Value>& info) {
   info.GetReturnValue().Set(info.This());
 }
 
-void JMatrix::GetValue(const Nan::FunctionCallbackInfo<v8::Value>& info) {
-  JMatrix* obj = ObjectWrap::Unwrap<JMatrix>(info.Holder());
-  info.GetReturnValue().Set(Nan::New(obj->value_));
-}
-
-
-void JMatrix::PlusOne(const Nan::FunctionCallbackInfo<v8::Value>& info) {
-  JMatrix* obj = ObjectWrap::Unwrap<JMatrix>(info.Holder());
-  obj->value_ += 1;
-  info.GetReturnValue().Set(Nan::New(obj->value_));
-}
-
-void JMatrix::Multiply(const Nan::FunctionCallbackInfo<v8::Value>& info) {
-  v8::Local<v8::Context> context = info.GetIsolate()->GetCurrentContext();
-  JMatrix* obj = ObjectWrap::Unwrap<JMatrix>(info.Holder());
-  double multiple =
-      info[0]->IsUndefined() ? 1 : info[0]->NumberValue(context).FromJust();
-
-  v8::Local<v8::Function> cons = Nan::New<v8::Function>(constructor);
-
-  const int argc = 1;
-  v8::Local<v8::Value> argv[argc] = {Nan::New(obj->value_ * multiple)};
-
-  info.GetReturnValue().Set(
-      cons->NewInstance(context, argc, argv).ToLocalChecked());
-}
 
 void JMatrix::Mds(const Nan::FunctionCallbackInfo<v8::Value>& info) {
   v8::Local<v8::Context> context = info.GetIsolate()->GetCurrentContext();

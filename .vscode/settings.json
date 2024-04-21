@@ -14,6 +14,8 @@
         "cstdlib": "cpp",
         "new": "cpp",
         "queue": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "cstdio": "cpp",
+        "cstring": "cpp"
     }
 }
