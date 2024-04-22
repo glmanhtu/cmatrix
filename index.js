@@ -10,7 +10,7 @@ var cmatrix = require('bindings')('cmatrix');
 //     }
 // }
 
-// var result = arrObj.mds(2, 50);
+// var result = arrObj.mds(2, 50, 1022);
 // console.log(result)
 
 module.exports = cmatrix;

@@ -35,7 +35,7 @@ class Matrix
 public:
   Matrix(int rows, int columns);                   // initialization without assigning values
   Matrix(int rows, int columns, T value);          // initialization with all same values
-  Matrix(int rows, int columns, std::string type); // special matrix such as I
+  Matrix(int rows, int columns, std::string type, int seed=0); // special matrix such as I
   Matrix(const char *filename);                    // load matrix from txt file
   ~Matrix();                                       // destruction
 
@@ -178,7 +178,7 @@ Matrix<T>::Matrix(int rows, int columns, T value) // initialization with all sam
 }
 
 template <class T>
-Matrix<T>::Matrix(int rows, int columns, std::string type) // special matrix such as I
+Matrix<T>::Matrix(int rows, int columns, std::string type, int seed) // special matrix such as I
 {
   if (rows < 1 || columns < 1)
   {
@@ -210,7 +210,7 @@ Matrix<T>::Matrix(int rows, int columns, std::string type) // special matrix suc
 
   else if (type.compare("rand") == 0) // all elements between 0 and 1
   {
-    srand(time(NULL));
+    srand(seed);
     int r1;
     double r2;
     for (int i = 0; i < rows_; i++)
@@ -229,7 +229,7 @@ Matrix<T>::Matrix(int rows, int columns, std::string type) // special matrix suc
 
   else if (type.compare("rand_int") == 0)
   {
-    srand(time(NULL));
+    srand(seed);
     for (int i = 0; i < rows_; i++)
     {
       for (int j = 0; j < columns_; j++)
@@ -241,7 +241,7 @@ Matrix<T>::Matrix(int rows, int columns, std::string type) // special matrix suc
 
   else if (type.compare("randperm") == 0) // random permutation, each column is a randperm vector of size rows*1
   {
-    srand(time(NULL));
+    srand(seed);
     for (int j = 0; j < columns; j++)
     {
       for (int i = 0; i < rows; i++)
@@ -954,7 +954,7 @@ inline Matrix<double> *MDS_UCF(Matrix<double> *D, Matrix<double> *X0, int dim, i
 // Multidimensional scaling (MDS) with SMACOF
 // This code re-implements Michael Bronstein's SMACOF in his Matlab Toolbox for Surface Comparison and Analysis
 // The Matlab SMACOF can be downloaded at http://tosca.cs.technion.ac.il/
-inline Matrix<double> *MDS_SMACOF(Matrix<double> *D, Matrix<double> *X0, int dim, int iter)
+inline Matrix<double> *MDS_SMACOF(Matrix<double> *D, Matrix<double> *X0, int dim, int iter, int seed)
 {
   if (D->rows() != D->columns())
   {
@@ -987,7 +987,7 @@ inline Matrix<double> *MDS_SMACOF(Matrix<double> *D, Matrix<double> *X0, int dim
   // without initialization
   else
   {
-    X = new Matrix<double>(D->rows(), dim, "rand");
+    X = new Matrix<double>(D->rows(), dim, "rand", seed);
     double D_mean = D->mean();                                             // mean value of distance matrix
     X->addNumberSelf(-0.5);                                                // move to the center
     X->multiplyNumberSelf(0.1 * D_mean / (1.0 / 3.0 * sqrt((double)dim))); // before this step, mean distance is 1/3*sqrt(d)

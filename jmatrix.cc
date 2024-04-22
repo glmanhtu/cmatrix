@@ -56,19 +56,20 @@ NAN_METHOD(JMatrix::Mds) {
   JMatrix* obj = ObjectWrap::Unwrap<JMatrix>(info.Holder());
   
   // expect exactly 2 arguments
-  if (info.Length() != 2) {
-    return Nan::ThrowError(Nan::New("JMatrix::Mds - expected arguments dim, iters").ToLocalChecked());
+  if (info.Length() != 3) {
+    return Nan::ThrowError(Nan::New("JMatrix::Mds - expected arguments dim, iters, seed").ToLocalChecked());
   }
 
   // expect arguments to be numbers
-  if (!info[0]->IsNumber() || !info[1]->IsNumber()) {
+  if (!info[0]->IsNumber() || !info[1]->IsNumber() || !info[2]->IsNumber()) {
     return Nan::ThrowError(Nan::New("JMatrix::Mds - expected arguments to be numbers").ToLocalChecked());
   }
 
   int dim = info[0]->NumberValue(context).FromJust();                                                      // number of dimensions
   int iter = info[1]->NumberValue(context).FromJust();                                                     // number of iterations
+  int seed = info[2]->NumberValue(context).FromJust();                                                    
     
-  smat::Matrix<double> *mdsRes = smat::MDS_SMACOF(obj->data_, NULL, dim, iter);
+  smat::Matrix<double> *mdsRes = smat::MDS_SMACOF(obj->data_, NULL, dim, iter, seed);
 
   v8::Local<v8::Array> result = Nan::New<v8::Array>(mdsRes->columns());
   for (int i = 0; i < mdsRes->columns(); i++) {

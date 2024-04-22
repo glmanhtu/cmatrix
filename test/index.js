@@ -23,6 +23,6 @@ describe('native extension', function() {
             }
         }
 
-        var result = arrObj.mds(2, 50);
+        var result = arrObj.mds(2, 50, 1022);
     });
 });
