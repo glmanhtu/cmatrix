@@ -94,7 +94,7 @@ private:
   **********************************************/
 
 template <class T>
-T min(T v1, T v2)
+T minC(T v1, T v2)
 {
   if (v1 < v2)
     return v1;
@@ -103,7 +103,7 @@ T min(T v1, T v2)
 }
 
 template <class T>
-T max(T v1, T v2)
+T maxC(T v1, T v2)
 {
   if (v1 > v2)
     return v1;
@@ -500,7 +500,7 @@ template <class T>
 T Matrix<T>::trace() // trace
 {
   T x = 0;
-  for (int i = 0; i < min<int>(rows_, columns_); i++)
+  for (int i = 0; i < minC<int>(rows_, columns_); i++)
   {
     x += v[i][i];
   }
